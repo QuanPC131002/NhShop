@@ -8,9 +8,12 @@ type ProductListProps = {
 
 const ProductList = ({ featured }: ProductListProps) => {
     const { data: products, isLoading, isError } = useProductQuery();
-    const filteredProducts = featured
-        ? products?.filter((product: IProduct) => product?.featured == featured)
-        : products;
+    
+    const filteredProducts = products && Array.isArray(products.product) ? 
+        (featured
+            ? products.product.filter((product: IProduct) => product.featured === featured)
+            : products.product
+        ) : [];
 
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Error</p>;
@@ -22,7 +25,7 @@ const ProductList = ({ featured }: ProductListProps) => {
                 </div>
                 <div className="section-body">
                     <div className="product-list">
-                        {filteredProducts?.map((product: IProduct, index: number) => {
+                        {filteredProducts.map((product: IProduct, index: number) => {
                             return (
                                 <div key={index} className="product-item">
                                     <div className="product-image">
@@ -36,7 +39,7 @@ const ProductList = ({ featured }: ProductListProps) => {
                                     <div className="product-info">
                                         <h3 className="product__name">
                                             <Link
-                                                to={`/products/${product.id}`}
+                                                to={`/products/${product._id}`}
                                                 className="product__link"
                                             >
                                                 {product?.name}
@@ -57,7 +60,7 @@ const ProductList = ({ featured }: ProductListProps) => {
                                     </div>
                                     <div className="product-actions">
                                         <Link
-                                            to={`/products/${product.id}`}
+                                            to={`/products/${product._id}`}
                                             className="btn product-action__quickview"
                                         >
                                             Quick View
