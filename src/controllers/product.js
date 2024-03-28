@@ -49,3 +49,13 @@ export const updateProductById = async (req, res) => {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error})
     }
 }
+
+export const related = async (req, res) => {
+    try {
+        const product = await Product.find({
+            category: req.params.categoryId,
+            _id: { $ne: req.params.productId },
+        });
+        return res.status(StatusCodes.OK).json(product);
+    } catch (error) {}
+};
