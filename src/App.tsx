@@ -12,6 +12,7 @@ import ProductManagement from "./pages/admin/product";
 import ProductAdd from "./pages/admin/product/add";
 import ProductEdit from "./pages/admin/product/edit";
 import { Toaster } from "@/components/ui/toaster"
+import CategoryDetail from "./pages/CategoryDetail";
 function App() {
     return (
         <>
@@ -20,6 +21,7 @@ function App() {
                     <Route index element={<HomePage />} />
                     <Route path="shop" element={<ShopPage />} />
                     <Route path="products/:id" element={<DetailProduct />} />
+                    <Route path="categories/:id" element={<CategoryDetail />} />
                     <Route path="about" element={<AboutPage />} />
                     <Route path="contact" element={<ContactPage />} />
                 </Route>

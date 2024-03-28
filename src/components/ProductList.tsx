@@ -4,26 +4,28 @@ import { Link } from "react-router-dom";
 
 type ProductListProps = {
     featured?: boolean;
+    data?: IProduct[];
 };
 
-const ProductList = ({ featured }: ProductListProps) => {
+const ProductList = ({ featured, data }: ProductListProps) => {
     const { data: products, isLoading, isError } = useProductQuery();
     
     const filteredProducts = products && Array.isArray(products.product) ? 
-        (featured
-            ? products.product.filter((product: IProduct) => product.featured === featured)
-            : products.product
-        ) : [];
+    (featured
+        ? products.product.filter((product: IProduct) => product.featured === featured)
+        : data ? data : products.product
+    ) : [];
 
+        
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Error</p>;
     return (
-        <section className="news">
-            <div className="container">
-                <div className="section-heading">
-                    <h2 className="section-heading__title">New</h2>
-                </div>
-                <div className="section-body">
+        // <section className="news">
+        //     <div className="container">
+        //         <div className="section-heading">
+        //             <h2 className="section-heading__title">New</h2>
+        //         </div>
+        //         <div className="section-body">
                     <div className="product-list">
                         {filteredProducts.map((product: IProduct, index: number) => {
                             return (
@@ -78,9 +80,9 @@ const ProductList = ({ featured }: ProductListProps) => {
                             );
                         })}
                     </div>
-                </div>
-            </div>
-        </section>
+        //         </div>
+        //     </div>
+        // </section>
     );
 };
 
