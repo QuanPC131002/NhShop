@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import authRouter from "./routers/auth";
 import categoryRouter from "./routers/category";
 import productRouter from "./routers/product";
+import cartRouter from "./routers/cart";
 
 const app = express();
 dotenv.config();
@@ -26,4 +27,5 @@ app.listen(PORT, () => {
 app.use("/api/v1", authRouter);
 app.use("/api/v1", productRouter);
 app.use("/api/v1", categoryRouter);
+app.use("/api/v1", cartRouter)
 export const viteNodeApp = app;
